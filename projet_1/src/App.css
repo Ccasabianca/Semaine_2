@@ -2,3 +2,7 @@
   height: 200px;
   object-fit: contain;
 }
+
+.add-btn {
+width: auto;
+}
