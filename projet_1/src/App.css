@@ -2,8 +2,3 @@
   height: 200px;
   object-fit: contain;
 }
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-}

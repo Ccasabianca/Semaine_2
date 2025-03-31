@@ -23,7 +23,7 @@ function App() {
                 src={product.image}
                 className="card-img"
               />
-              <Card.Body className="card-body">
+              <Card.Body>
                 <Card.Title>{product.title}</Card.Title>
                 <Card.Text>{product.description}</Card.Text>
                 {product.price}€
