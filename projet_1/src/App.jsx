@@ -68,7 +68,7 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ price: 39.99}),
+      body: JSON.stringify({ price: 39.99 }),
     });
     const data = await response.json();
 
@@ -79,6 +79,16 @@ function App() {
     );
 
     alert("Le prix du produit avec l'id " + data.id + " a été modifié");
+  };
+
+  const deleteProduct = async (id) => {
+    await fetch(`https://fakestoreapi.com/products/${id}`, {
+      method: "DELETE",
+    });
+    
+    setProducts(products.filter((product) => product.id !== id));
+    
+    alert("Le produit avec l'id " + id + " a été supprimé");
   };
 
   return (
@@ -121,6 +131,13 @@ function App() {
                   variant="success"
                 >
                   Modifier le prix du produit
+                </Button>
+                <Button
+                  onClick={() => deleteProduct(product.id)}
+                  className="delete-btn my-2"
+                  variant="danger"
+                >
+                  Supprimer le produit
                 </Button>
               </Card.Body>
             </Card>
