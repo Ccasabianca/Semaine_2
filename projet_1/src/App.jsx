@@ -11,13 +11,16 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        console.log("Fetch lancé");
         const response = await fetch("https://fakestoreapi.com/products");
         if (!response.ok) {
           throw new Error(`Erreur HTTP ${response.status}`);
         }
         const data = await response.json();
         setProducts(data);
+        console.log("Fetch réussi", data);
       } catch (err) {
+        console.error("Erreur pendant le fetch", err.message);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -28,6 +31,7 @@ function App() {
 
   const addProduct = async () => {
     try {
+      console.log("Ajout produit");
       const newProduct = {
         title: "Nouveau produit",
         price: 9.99,
@@ -48,14 +52,17 @@ function App() {
       }
       const data = await response.json();
       setProducts([...products, data]);
+      console.log("Ajout produit réussi", data);
       alert("Le produit avec l'id " + data.id + " a été créé");
     } catch (err) {
+      console.error("Erreur pendant ajout produit", err.message);
       alert("Erreur : " + err.message);
     }
   };
 
   const updateProduct = async (id) => {
     try {
+      console.log(`Update produit ${id}`);
       const updatedProduct = {
         title: "Produit mis à jour",
         price: 49.99,
@@ -79,14 +86,17 @@ function App() {
           product.id === id ? { ...product, ...updatedProduct } : product
         )
       );
+      console.log(`Update produit ${id} OK`);
       alert("Le produit avec l'id " + id + " a été modifié");
     } catch (err) {
+      console.error("Erreur update produit", err.message);
       alert("Erreur : " + err.message);
     }
   };
 
   const updateProductPrice = async (id) => {
     try {
+      console.log(`Update prix pour produit ${id}`);
       const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
         method: "PATCH",
         headers: {
@@ -102,14 +112,17 @@ function App() {
           product.id === id ? { ...product, price: 39.99 } : product
         )
       );
+      console.log(`Update prix OK pour produit ${id}`);
       alert("Le prix du produit avec l'id " + id + " a été modifié");
     } catch (err) {
+      console.error("Update prix erreur:", err.message);
       alert("Erreur : " + err.message);
     }
   };
 
   const deleteProduct = async (id) => {
     try {
+      console.log(`Supprime produit ${id}`);
       const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
         method: "DELETE",
       });
@@ -117,8 +130,10 @@ function App() {
         throw new Error(`Erreur HTTP ${response.status}`);
       }
       setProducts(products.filter((product) => product.id !== id));
+      console.log(`Produit ${id} supprimé`);
       alert("Le produit avec l'id " + id + " a été supprimé");
     } catch (err) {
+      console.error("Erreur suppression produit", err.message);
       alert("Erreur : " + err.message);
     }
   };
